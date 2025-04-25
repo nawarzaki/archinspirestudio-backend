@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node server.js"
   }
-}
+},
 
 {
   "name": "archinspirestudio-backend",
@@ -21,7 +21,7 @@
     "multer": "^1.4.3",
     "dotenv": "^10.0.0"
   }
-}
+},
 
 
 {
@@ -52,4 +52,4 @@
     "mongoose": "^8.13.2",
     "multer": "^1.4.5-lts.2"
   }
-}
+},
