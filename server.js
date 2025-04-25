@@ -1,6 +1,3 @@
-const API_BASE = 'https://archinspirestudio-api.onrender.com';
-
-
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
