@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection with SSL/TLS
+// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,12 +18,24 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('MongoDB Connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
-// Example route
+// Simple API route to test server
 app.get('/', (req, res) => {
   res.send('Backend is working!');
 });
 
-// Correct PORT handling
+// 🛠️ New: Login Route
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Hardcoded login for now
+  if (username === 'admin' && password === 'admin123') {
+    return res.json({ token: 'your-token-here' });
+  } else {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
+
+// Port
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
