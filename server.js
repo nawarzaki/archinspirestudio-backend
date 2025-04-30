@@ -35,6 +35,22 @@ app.post('/api/login', (req, res) => {
   }
 });
 
+let posts = []; // Temporary in-memory post storage
+
+app.post('/api/posts', (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) return res.status(400).json({ message: 'Missing title or content' });
+
+  const newPost = { title, content };
+  posts.push(newPost);
+  res.status(201).json({ message: 'Post created', post: newPost });
+});
+
+app.get('/api/posts', (req, res) => {
+  res.json(posts);
+});
+
+
 // Port
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
