@@ -56,3 +56,43 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+const Subsection = require('./models/Subsection');
+
+// Create
+app.post('/api/subsections', async (req, res) => {
+  try {
+    const sub = new Subsection(req.body);
+    await sub.save();
+    res.status(201).json(sub);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Read all
+app.get('/api/subsections', async (req, res) => {
+  const subs = await Subsection.find().sort({ createdAt: -1 });
+  res.json(subs);
+});
+
+// Update
+app.put('/api/subsections/:id', async (req, res) => {
+  try {
+    const updated = await Subsection.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Delete
+app.delete('/api/subsections/:id', async (req, res) => {
+  try {
+    await Subsection.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
